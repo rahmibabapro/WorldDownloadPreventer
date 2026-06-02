@@ -1,0 +1,25 @@
+name: WorldDownloadPreventer
+version: ${version}
+main: com.ageofmc.wdp.WorldDownloadPreventerPlugin
+api-version: "26.1"
+folia-supported: true
+description: WorldTools-aware download protection for Folia 26.1.2 (JDK 25)
+author: AgeOfMC
+
+commands:
+  wdp:
+    description: World download protection administration
+    usage: /wdp <reload|status|protect|unprotect|scan|datapack>
+    permission: wdp.admin
+    aliases: [worlddownloadpreventer]
+
+permissions:
+  wdp.admin:
+    description: Full WDP administration
+    default: op
+  wdp.bypass:
+    description: Bypass download detection
+    default: false
+  wdp.notify:
+    description: Receive staff alerts
+    default: op

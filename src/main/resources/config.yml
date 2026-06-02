@@ -1,0 +1,72 @@
+# WorldDownloadPreventer — Folia 26.1.2 / JDK 25 / WorldTools-aware
+# Profile presets: lotc | balanced | paranoid | custom
+
+profile: lotc
+
+# Worlds listed here are always protected (in addition to /wdp protect)
+protected-worlds:
+  - world
+  - world_nether
+  - world_the_end
+
+# --- Protection layers (override profile when profile: custom) ---
+protection:
+  # Custom dimension + extended height (yPos -8, 40 sections) via datapack
+  custom-dimension: true
+  # Replace section biomes with wdp:* trap biomes (unknown in vanilla SP)
+  custom-biomes: true
+  # Extended heightmaps (43 entries) incompatible with vanilla (37)
+  extended-heightmaps: true
+  # PostProcessing array sized for extended sections (40 entries)
+  extended-post-processing: true
+  # Block entity display names that break Gson in vanilla SP
+  block-entity-json-trap: true
+  # Inject decoy flat/void entries into dimension registry sync (datapack)
+  void-decoy-generator: true
+  # Strip structures/features from chunk packets where possible
+  strip-structure-refs: false
+
+# --- WorldTools client detection ---
+detection:
+  enabled: true
+  # Chunks sent to player within window before flagging
+  chunks-per-window: 120
+  window-seconds: 10
+  # Consecutive windows above threshold before action
+  strikes-before-action: 3
+  # ring | grid | any — ring = expanding circle exploration (typical downloader)
+  pattern: ring
+  # plugin-message channel substrings to flag (WorldTools uses fabric; often no channel)
+  suspicious-channels:
+    - worldtools
+    - world-downloader
+    - wdl
+  action: notify
+  # notify | kick | tempban (tempban needs external plugin — falls back to kick)
+  kick-message: "&cWorld download tools are not allowed on this server."
+
+# --- Performance ---
+performance:
+  # Only mutate chunks when a player is within this chunk distance
+  mutate-only-near-players: true
+  player-chunk-radius: 10
+  # Max chunk mutations per tick (spread load)
+  mutations-per-tick: 8
+  # Skip re-processing if chunk already tagged with this version
+  cache-mutations: true
+  mutation-cache-version: 1
+
+# --- Datapack (auto-deployed to each protected world) ---
+datapack:
+  namespace: wdp
+  auto-reload: true
+  # Dimension id used for NEW worlds via /wdp createworld
+  protected-dimension: protected
+
+# --- Staff ---
+staff:
+  notify-permission: wdp.notify
+  log-to-console: true
+
+# Debug NMS reflection (Paper 1.21.4+)
+debug: false
