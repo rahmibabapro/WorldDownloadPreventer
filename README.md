@@ -12,14 +12,18 @@ Part of the [AgeOfMC](https://github.com/) plugin stack — uses `age-lib` (`Ser
 | Minecraft | **26.1.2.x** |
 | Java | **JDK 25** |
 
-## Build (AgeOfMC monorepo)
+## Build (AgeOfMC monorepo — required)
+
+This module depends on **`age-lib`** (`ServerRequirements`, `SchedulerCompat`). Build from the Plugins root:
 
 ```bash
 cd minecraft/Plugins
-./gradlew :WorldDownloadPreventer:jar
+./gradlew.bat :WorldDownloadPreventer:jar
 ```
 
 Output: `WorldDownloadPreventer/build/libs/WorldDownloadPreventer.jar`
+
+> The GitHub checkout alone does not include `age-lib`; clone the full AgeOfMC `Plugins` tree or add `age-lib` as a composite build dependency.
 
 ## Install
 
